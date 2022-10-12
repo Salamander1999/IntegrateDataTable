@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Table</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <style>
+    body {
+      /*background-color: #7AC1D5;*/
+      background-image: linear-gradient(to right, #9E932E, #41832D, #2DB398, #1885E5, #7ac1d5);
+    }
+    .container {
+      box-shadow: 0 0 15px;
+      border-radius: 10px;
+      padding: 10px;
+      background-color: white;
+    }
+    h1 {
+      text-align: center;
+      margin:80px 0px;
+      font-family: arial;
+      font-weight: 800;
+    }
+    .form-group {
+      margin:20px 0 ;
+    }
+    label {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+   <h1>Cryto-Game Team</h1>
+    <div id="employeeTable"></div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Employee Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <form>
+        <div class="form-group">
+			<label for="name">Name</label>
+			<input type="text" class="form-control" id="name">
+		</div>
+        <div class="form-group">
+            <label for="name">Position</label>
+            <input type="text" class="form-control" id="position">
+        </div>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" class="form-control" id="age">
+        </div>
+        <div class="form-group">
+            <label for="address">Marital Status</label>
+            <input type="text" class="form-control" id="maritalStatus">
+        </div>
+        <div class="form-group">
+			<label for="address">Start Date</label>
+			<input type="text" class="form-control" id="startDate">
+        </div>
+        <div class="form-group">
+			<label for="address">Salary</label>
+            <input type="text" class="form-control" id="salary">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<!--    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script> -->
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script> 
+  <script>
+    const employees = [
+        { id: 1, name: 'Angel III C. Rodolfo', position: 'Chief Executive Officer(CEO)', age: '22', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$300,000'},
+        { id: 2, name: 'Al James Manaloto', position: 'Support Engineer', age: '25', maritalStatus: 'Married', startDate: '04/10/2022', salary: '$19,421' },
+        { id: 3, name: 'Alexander Maca Mendoza', position: 'Discord Moderator', age: '45', maritalStatus: 'Married', startDate: '04/10/2022', salary: '$10,425' },
+        { id: 4, name: 'Alexandra Robredo', position: 'Discord Moderator', age: '42	', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$10,425' },
+        { id: 5, name: 'Allan K Serrano', position: 'Application Analyst', age: '25', maritalStatus: 'Married', startDate: '04/10/2022', salary: '$18,312' },
+        { id: 6, name: 'Andrea Dela Santa Anna', position: 'System Analyst)', age: '30', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$18,312' },
+        { id: 7, name: 'Angelou Dela Cruz', position: 'Graphic Designer', age: '22', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$25,340' },
+        { id: 8, name: 'Arjon Bacus', position: 'System Administrator', age: '33', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$17,313' },
+        { id: 9, name: 'Bongbong Marcos', position: 'Support Engineer', age: '45', maritalStatus: 'Married', startDate: '04/10/2022', salary: '$19,421' },
+        { id: 10, name: 'Callie Joy Fuentes', position: 'Graphic Designer', age: '24', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$25,340' },
+        { id: 11, name: 'Camille Jimenez', position: 'Data Coordinator', age: '26', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$16,550' },
+        { id: 12, name: 'Cara Stevens', position: 'Javascript Developer', age: '30', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$22,650' },
+        { id: 13, name: 'Cardo Dalisay', position: 'System Application Architect', age: '43', maritalStatus: 'Married', startDate: '04/10/2022', salary: '$30,000' },
+        { id: 14, name: 'Cedrick Angelo Santos', position: 'Developer', age: '23', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$20,412' },
+        { id: 15, name: 'Daniel Padilla', position: 'System Analyst', age: '30', maritalStatus: 'Married', startDate: '04/10/2022', salary: '$18, 312' },
+        { id: 16, name: 'Derick Rose', position: 'System Application Architect', age: '36', maritalStatus: 'Married', startDate: '04/10/2022', salary: '$30,000' },
+        { id: 17, name: 'Derick Scott Matro', position: 'Application Analyst', age: '40', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$18,312' },
+		{ id: 18, name: 'Edgar Manzano', position: 'Support Engineer', age: '24', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$19,421' },
+		{ id: 19, name: 'Edward Reyes', position: 'Support Engineer', age: '21', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$19,421' },
+		{ id: 20, name: 'George Wong', position: 'Developer', age: '39', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$20,531' },
+		{ id: 21, name: 'Giannis Antetokoumpuo', position: 'Software Engineer)', age: '31', maritalStatus: 'Married', startDate: '04/10/2022', salary: '$31,230' },
+		{ id: 22, name: 'Glecy Ann Monzon', position: 'Graphic Designer', age: '23', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$25,340' },
+		{ id: 23, name: 'Hannah Sopresa', position: 'Data Coordinator', age: '59', maritalStatus: 'Widowed', startDate: '04/10/2022', salary: '$16,550' },
+		{ id: 24, name: 'Hibert George', position: 'Javascript Developer', age: '32', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$22,650' },
+		{ id: 25, name: 'Jennifer Acosta', position: 'Javascript Developer', age: '43', maritalStatus: 'Married', startDate: '04/10/2022', salary: '$22,650' },
+		{ id: 26, name: 'Jhustine Velustria', position: 'System Administrator', age: '18', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$17,313' },
+		{ id: 27, name: 'Jimmy Butler', position: 'System Application Architect', age: '33', maritalStatus: 'Married', startDate: '04/10/2022', salary: '$30,000' },
+		{ id: 28, name: 'John Albert Andaya', position: 'System Administrator', age: '24', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$17,313' },
+		{ id: 29, name: 'John Carlo Nacino', position: 'System Administrator', age: '24', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$17,313' },
+		{ id: 30, name: 'John Joel Aberilla', position: 'Developer', age: '23', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$20,531' },
+		{ id: 31, name: 'John Paolo Manila', position: 'Discord Moderator', age: '25', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$10,425' },
+		{ id: 32, name: 'Jonas Conde', position: 'Javascript Developer', age: '28', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$22,650' },
+		{ id: 33, name: 'Juan Christofer Ponsones', position: 'Support Engineer', age: '22', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$19,421' },
+		{ id: 34, name: 'Kathryn Bernardo', position: 'System Analyst', age: '29', maritalStatus: 'Married', startDate: '04/10/2022', salary: '$25,340' },
+		{ id: 35, name: 'Kim Andrea Sobrenilla', position: 'Graphic Designer', age: '24', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$17,313' },
+		{ id: 36, name: 'Kobe Bryant', position: 'Software Engineer', age: '45', maritalStatus: 'Married', startDate: '04/10/2022', salary: '$31,230' },
+		{ id: 37, name: 'Lebron James', position: 'System Application Architect', age: '43', maritalStatus: 'Married', startDate: '04/10/2022', salary: '$30,000' },
+		{ id: 38, name: 'Lourdes Comission', position: 'Javascript Developer', age: '55', maritalStatus: 'Widowed', startDate: '04/10/2022', salary: '$22,650' },
+		{ id: 39, name: 'Luka Doncic', position: 'System Application Architect', age: '30', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$30,000' },
+		{ id: 40, name: 'Manuelito Magsino', position: 'Discord Moderator', age: '29', maritalStatus: 'Single', startDate: '04/10/2022', salary: '$10,425' },
+    ];
+
+    function displayEmployees() {
+      var mytable = `
+                  <div class="container">
+                    <table id="myTable" class="table table-striped">
+                      <thead>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Age</th>
+                        <th>Marital Status</th>
+                        <th>Start Date</th>
+                        <th>Salary</th>
+                        <th>Option</th>
+                      </thead>
+                      <tbody>
+                        `;
+        for (var employee of employees) {  
+              mytable += "<tr><td>" + employee.name + "</td><td>" + employee.position + "</td><td>" + employee.age + "</td><td>" + employee.maritalStatus + "</td><td>" + employee.startDate + "</td><td>" + employee.salary + `</td><td> <button class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModalCenter" onclick='log(` + employee.id + `)'>Show Info.</button></td></tr>`; 
+        }
+
+        mytable += `
+                  </tbody>
+                </table>
+                </div>`;
+        document.getElementById("employeeTable").innerHTML = mytable;
+
+    }
+    displayEmployees();
+
+    function log(id) {
+      let employee = employees.filter((i) => i.id == id)
+        $("#exampleModal").modal();
+        assignValueToInput(employee);
+    }
+
+    function assignValueToInput(employee) {
+        document.getElementById('name').value = employee[0].name;
+        document.getElementById('position').value = employee[0].position;
+        document.getElementById('age').value = employee[0].age;
+        document.getElementById('maritalStatus').value = employee[0].maritalStatus;
+        document.getElementById('startDate').value = employee[0].startDate;
+        document.getElementById('salary').value = employee[0].salary;
+    }
+  </script>
+   <script>
+    $(document).ready( function () {
+      $('#myTable').DataTable();
+      } );
+  </script>
+
+  
+
+
+</body>
+</html>
